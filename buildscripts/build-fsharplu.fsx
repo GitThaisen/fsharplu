@@ -5,8 +5,10 @@ open Fake.DotNetCli
 
 let buildDir  = "./build/"
 let nugetToolPath = "../.nuget/nuget.exe"
-let projectName = "NRK.FSharpLu"
-let projectToBuild = "./FSharpLu/FSharpLu.fsproj"
+let mainProjectName = "NRK.FSharpLu"
+let jsonProjectName = "NRK.FSharpLu.Json"
+let mainProjectToBuild = "./FSharpLu/FSharpLu.fsproj"
+let jsonProjectToBuild = "./FSharpLu.Json/FSharpLu.Json.fsproj"
 let testProject = "./FSharpLu.Tests/FSharpLu.Tests.fsproj"
 
 let getTeamCityBuildNumberOrDefault() =
@@ -42,12 +44,19 @@ Target "RestorePackages" (fun _ ->
 
 //Build projects
 Target "BuildProjects" (fun _ ->
-   DotNetCli.Build
+    DotNetCli.Build
      (fun p -> 
        { p with 
             Configuration = "Release" 
             WorkingDir = "../"
-            Project = projectToBuild}))
+            Project = mainProjectToBuild})
+    DotNetCli.Build
+     (fun p -> 
+       { p with 
+            Configuration = "Release" 
+            WorkingDir = "../"
+            Project = jsonProjectToBuild})
+)
 
 Target "BuildTests" (fun _ -> 
     DotNetCli.Build
@@ -68,13 +77,20 @@ Target "Test" (fun _ ->
 )
 
 Target "CreateNugetPackage" (fun _ ->
-  DotNetCli.Pack (fun c ->
-    { c with 
-        Configuration = "Release"
-        Project = projectToBuild
-        AdditionalArgs = [ "/p:PackageVersion=" + version; "/p:Version=" + version; ]           
-        OutputPath = "../buildscripts/build"
-        WorkingDir = "../"})
+    DotNetCli.Pack (fun c ->
+        { c with 
+            Configuration = "Release"
+            Project = mainProjectToBuild
+            AdditionalArgs = [ "/p:PackageVersion=" + version; "/p:Version=" + version; ]           
+            OutputPath = "../buildscripts/build"
+            WorkingDir = "../"})
+    DotNetCli.Pack (fun c ->
+        { c with 
+            Configuration = "Release"
+            Project = jsonProjectToBuild
+            AdditionalArgs = [ "/p:PackageVersion=" + version; "/p:Version=" + version; ]           
+            OutputPath = "../buildscripts/build"
+            WorkingDir = "../"})
 )
 
 Target "PublishNugetPackage" (fun _ ->
@@ -83,7 +99,17 @@ Target "PublishNugetPackage" (fun _ ->
     {p with
         PublishUrl = environVarOrDefault "myget.publishUrl" ""
         AccessKey = environVarOrDefault "myget.accessKey" ""
-        Project = projectName
+        Project = mainProjectName
+        WorkingDir = buildDir
+        OutputPath = buildDir
+        Version = version
+        ToolPath = nugetToolPath
+    })
+    NuGetPublish (fun p ->
+    {p with
+        PublishUrl = environVarOrDefault "myget.publishUrl" ""
+        AccessKey = environVarOrDefault "myget.accessKey" ""
+        Project = jsonProjectName
         WorkingDir = buildDir
         OutputPath = buildDir
         Version = version
