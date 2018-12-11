@@ -2,16 +2,18 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net452;net461</TargetFrameworks>
-    <Authors>Microsoft</Authors>
-    <PackageProjectUrl>https://github.com/Microsoft/fsharplu</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/Microsoft/fsharplu/blob/master/LICENSE.MD</PackageLicenseUrl>
-    <Description>Utilities and .Net library wrappers for F#</Description>
+    <Authors>Microsoft;nrkno</Authors>
+    <PackageProjectUrl>https://github.com/nrkno/fsharplu</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/nrkno/fsharplu/blob/master/LICENSE.MD</PackageLicenseUrl>
+    <Description>An NRK-Specific Fork of Utilities and .Net library wrappers for F#</Description>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <PackageTags>F#, FSharp, FSharp utilities, collection, logging, diagnostic, async, Json</PackageTags>
     <PackageReleaseNotes>Signed assemblies and nuget package</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Company>Microsoft</Company>
-    <PackageId>Microsoft.FSharpLu</PackageId>
+    <PackageId>NRK.FSharpLu</PackageId>
+	<RepositoryUrl>https://github.com/nrkno/fsharplu/</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
