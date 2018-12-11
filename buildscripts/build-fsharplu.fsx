@@ -26,7 +26,7 @@ let version =
   if isMasterBranch then
     environVarOrDefault "version" nugetVersion
   else
-    environVarOrDefault "version" (nugetVersion + "-alpha")    
+    environVarOrDefault "version" (nugetVersion + "-alpha")
 
 Target "Clean" (fun _ ->
     CleanDirs [buildDir]
@@ -78,6 +78,7 @@ Target "CreateNugetPackage" (fun _ ->
 )
 
 Target "PublishNugetPackage" (fun _ ->
+    SetBuildNumber version
     NuGetPublish (fun p ->
     {p with
         PublishUrl = environVarOrDefault "myget.publishUrl" ""
