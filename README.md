@@ -7,13 +7,6 @@ This is by no means a full-fledged utility library for F#, but rather a small co
 Some of the provided utilities are just thin `let`-bindings wrappers around existing .Net libraries (e.g. module `FSharpLu.Text` or `FSharpLu.Parsing`) whereas some provide additional features (e.g. Json serialization in module `FSharpLu.Json`).
 
 
-## Build status
-
-| Branch | Status |
-|--------|--------|
-| current status | [![Build status](https://ci.appveyor.com/api/projects/status/y2lrc49c0lxprg77?svg=true)](https://ci.appveyor.com/project/blumu/fsharplu) |
-|master | [![Build status](https://ci.appveyor.com/api/projects/status/y2lrc49c0lxprg77/branch/master?svg=true)](https://ci.appveyor.com/project/blumu/fsharplu/branch/master) |
-
 ## Build requirements
 
 Install dotnet core SDK from https://www.microsoft.com/net/core. You need 2.0.0 version of SDK or later. To build project run `dotnet build`.
