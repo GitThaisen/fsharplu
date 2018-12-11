@@ -5,9 +5,9 @@ open Fake.DotNetCli
 
 let buildDir  = "./build/"
 let nugetToolPath = "../.nuget/nuget.exe"
-let projectName = "FSharpLu"
-let projectToBuild = "FSharpLu/FSharpLu.fsproj"
-let testProject = "FSharpLu/FSharpLu.Tests.fsproj"
+let projectName = "NRK.FSharpLu"
+let projectToBuild = "./FSharpLu/FSharpLu.fsproj"
+let testProject = "./FSharpLu.Tests/FSharpLu.Tests.fsproj"
 
 let getTeamCityBuildNumberOrDefault() =
     match TeamCityHelper.TeamCityBuildNumber with
@@ -73,7 +73,7 @@ Target "CreateNugetPackage" (fun _ ->
         Configuration = "Release"
         Project = projectToBuild
         AdditionalArgs = [ "/p:PackageVersion=" + version; "/p:Version=" + version; ]           
-        OutputPath = "../../buildscripts/build"
+        OutputPath = "../buildscripts/build"
         WorkingDir = "../"})
 )
 
@@ -86,7 +86,7 @@ Target "PublishNugetPackage" (fun _ ->
         WorkingDir = buildDir
         OutputPath = buildDir
         Version = version
-        ToolPath = nugetToolPath        
+        ToolPath = nugetToolPath
     })
 )
 
